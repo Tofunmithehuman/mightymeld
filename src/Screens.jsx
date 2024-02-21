@@ -16,17 +16,49 @@ export const possibleTileContents = [
   icons.GiOpenBook,
 ];
 
-export function StartScreen({ start }) {
+export function StartScreen({ start, darkMode, toggleDarkMode }) {
   return (
-    <div>
-      <button onClick={start} className="bg-gray-400 text-white p-3">
-        Play
-      </button>
+    <div
+      className={`flex justify-center items-center min-h-screen ${
+        darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
+      }`}
+    >
+      <div
+        className={`text-center p-10 rounded-2xl m-20 h-60vh shadow-2xl ${
+          darkMode ? "bg-gray-800 text-white" : "bg-pink-100 text-pink-500"
+        }`}
+      >
+        <h1 className={`text-4xl font-bold mb-14`}>Memory</h1>
+
+        <h2
+          className={`font-bold mb-20`}
+          style={{
+            width: "250px",
+          }}
+        >
+          Flip over tiles looking for pairs
+        </h2>
+
+        <button
+          onClick={start}
+          className={`p-2 px-20 md:px-30 rounded-full text-2xl font-bold ${
+            darkMode ? "bg-gray-700 text-white" : "bg-pink-500 text-white"
+          }`}
+        >
+          Play
+        </button>
+        <button
+          onClick={toggleDarkMode}
+          className="absolute text-gray top-5 right-5 p-2"
+        >
+          {darkMode ? "LightMode" : "DarkMode"}
+        </button>
+      </div>
     </div>
   );
 }
 
-export function PlayScreen({ end }) {
+export function PlayScreen({ end, darkMode, toggleDarkMode }) {
   const [tiles, setTiles] = useState(null);
   const [tryCount, setTryCount] = useState(0);
 
@@ -109,12 +141,55 @@ export function PlayScreen({ end }) {
 
   return (
     <>
-      <div>
-        {getTiles(6).map((tile, i) => (
-          <Tile key={i} flip={() => flip(i)} {...tile} />
-        ))}
+      <div
+        className={`flex flex-col justify-center items-center min-h-screen ${
+          darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
+        }`}
+      >
+        <div
+          className={`absolute top-28 left-0 w-full flex justify-center mt-10 md:mt-20 ${
+            darkMode ? "text-white" : "text-purple-600"
+          }`}
+        >
+          <div
+            className={`font-bold ${
+              darkMode ? "text-white" : "text-purple-600"
+            }`}
+          >
+            Tries
+            <span
+              className={`bg-blue-200 mx-2 p-1 px-3.5 rounded-xl ${
+                darkMode ? "text-white bg-purple-800" : "text-purple-600"
+              }`}
+            >
+              {tryCount}
+            </span>
+          </div>
+        </div>
+
+        <div
+          className={`w-80 h-80 p-2 relative rounded-xl shadow-xl mt-10 md:mt-20 ${
+            darkMode ? "bg-gray-800" : "bg-purple-200"
+          }`}
+        >
+          <div className="grid grid-cols-4 justify-center items-center gap-4 h-full">
+            {getTiles(16).map((tile, i) => (
+              <div
+                key={i}
+                className="w-full h-full flex justify-center items-center"
+              >
+                <Tile flip={() => flip(i)} {...tile} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <button
+          onClick={toggleDarkMode}
+          className="absolute text-gray top-5 right-5 p-2"
+        >
+          {darkMode ? "LightMode" : "DarkMode"}
+        </button>
       </div>
-      {tryCount}
     </>
   );
 }
