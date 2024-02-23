@@ -3,17 +3,17 @@ export function Tile({ content: Content, flip, state }) {
     case "start":
       return (
         <Back
-          className="inline-block h-14 w-14 bg-purple-400 text-center"
+          className="inline-block h-14 w-14 bg-purple-400 text-center rounded-xl"
           flip={flip}
         />
       );
     case "flipped":
       return (
-        <Front className="inline-block h-14 w-14 bg-purple-500">
+        <Front className="inline-block h-14 w-14 bg-purple-500 text-center rounded-xl">
           <Content
             style={{
               display: "inline-block",
-              width: "100%",
+              width: "80%",
               height: "100%",
               verticalAlign: "top",
             }}
@@ -26,7 +26,7 @@ export function Tile({ content: Content, flip, state }) {
           <Content
             style={{
               display: "inline-block",
-              width: "100%",
+              width: "80%",
               height: "100%",
               verticalAlign: "top",
             }}
